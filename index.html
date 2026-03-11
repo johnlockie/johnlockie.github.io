@@ -1100,19 +1100,78 @@
     margin-top: 32px;
   }
 
-  .port-card {
-    background: linear-gradient(135deg, rgba(0,204,255,0.07), rgba(0,204,255,0.03));
-    border: 1px solid rgba(0,204,255,0.18);
-    border-left: 3px solid var(--cyan);
-    padding: 24px;
-    position: relative;
-    transition: transform 0.2s, box-shadow 0.2s;
+  /* flip wrapper */
+  .port-flip {
+    perspective: 1200px;
+    height: 280px;
+    cursor: pointer;
   }
 
-  .port-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 36px rgba(0,204,255,0.08);
+  .port-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
   }
+
+  .port-flip:hover .port-card,
+  .port-flip.flipped .port-card {
+    transform: rotateY(180deg);
+  }
+
+  .port-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border: 1px solid rgba(0,204,255,0.18);
+    border-left: 3px solid var(--cyan);
+    overflow: hidden;
+  }
+
+  /* FRONT */
+  .port-front {
+    background: linear-gradient(135deg, rgba(0,204,255,0.07), rgba(0,204,255,0.03));
+    padding: 24px;
+  }
+
+  /* BACK */
+  .port-back {
+    transform: rotateY(180deg);
+    background: #000;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .port-back img {
+    width: 100%;
+    flex: 1;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0.9;
+  }
+
+  .port-back-bar {
+    background: rgba(0,204,255,0.12);
+    border-top: 1px solid rgba(0,204,255,0.25);
+    padding: 10px 16px;
+    font-size: 12px;
+    color: var(--cyan);
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .port-back-bar a {
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .port-back-bar a:hover { text-decoration: underline; }
 
   .port-logo {
     position: absolute;
@@ -1146,10 +1205,17 @@
 
   .port-card-url a:hover { color: var(--cyan); }
 
-  .port-card p {
+  .port-front p {
     font-size: 13px;
     color: #aaa;
     line-height: 1.7;
+  }
+
+  .port-hint {
+    font-size: 11px;
+    color: rgba(0,204,255,0.4);
+    letter-spacing: 1px;
+    margin-top: 14px;
   }
 
   /* ── RESPONSIVE ── */
@@ -1182,6 +1248,7 @@
     .vol-grid      { grid-template-columns: 1fr; }
     .adv-grid      { grid-template-columns: 1fr; }
     .port-grid     { grid-template-columns: 1fr; }
+    .port-flip     { height: 320px; }
 
     /* ── HIDE LOGOS ON CARDS ── */
     .vol-logo  { display: none; }
@@ -1538,18 +1605,46 @@
 
   <div class="port-grid">
 
-    <div class="port-card">
-      <img src="logos/threatsrus.webp" alt="Threats-R-Us" class="port-logo">
-      <div class="port-card-title">Threats-R-Us</div>
-      <div class="port-card-url"><a href="https://threatsr.us" target="_blank" rel="noopener noreferrer">threatsr.us</a></div>
-      <p>Threatsr.us was a passion project. It was an OSINT collection of loosely coupled public facing honeypots which aimed to collect low level data about risky IP addresses, and then distribute that info to interested parties. Due to the low efficacy of IP intelligence, and the time/cost involved to upkeep the service I retired it.</p>
+    <div class="port-flip">
+      <div class="port-card">
+        <!-- FRONT -->
+        <div class="port-face port-front">
+          <img src="logos/threatsrus.webp" alt="Threats-R-Us" class="port-logo">
+          <div class="port-card-title">Threats-R-Us</div>
+          <div class="port-card-url"><a href="https://threatsr.us" target="_blank" rel="noopener noreferrer">threatsr.us</a></div>
+          <p>Threatsr.us was a passion project. It was an OSINT collection of loosely coupled public facing honeypots which aimed to collect low level data about risky IP addresses, and then distribute that info to interested parties. Due to the low efficacy of IP intelligence, and the time/cost involved to upkeep the service I retired it.</p>
+          <div class="port-hint">[ hover to preview ]</div>
+        </div>
+        <!-- BACK -->
+        <div class="port-face port-back">
+          <img src="screenshots/threatsr.jpg" alt="threatsr.us screenshot">
+          <div class="port-back-bar">
+            <span>threatsr.us</span>
+            <a href="https://threatsr.us" target="_blank" rel="noopener noreferrer">visit &rarr;</a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="port-card">
-      <img src="logos/thedefensedude.png" alt="The Defense Dude" class="port-logo">
-      <div class="port-card-title">The Defense Dude</div>
-      <div class="port-card-url"><a href="https://thedefensedude.com" target="_blank" rel="noopener noreferrer">thedefensedude.com</a></div>
-      <p>A cybersecurity blog covering technical defensive topics including Active Directory auditing with BloodHound, credential protection, and Purple Team strategies. Articles are written for security professionals seeking practical, real-world guidance.</p>
+    <div class="port-flip">
+      <div class="port-card">
+        <!-- FRONT -->
+        <div class="port-face port-front">
+          <img src="logos/thedefensedude.png" alt="The Defense Dude" class="port-logo">
+          <div class="port-card-title">The Defense Dude</div>
+          <div class="port-card-url"><a href="https://thedefensedude.com" target="_blank" rel="noopener noreferrer">thedefensedude.com</a></div>
+          <p>A cybersecurity blog covering technical defensive topics including Active Directory auditing with BloodHound, credential protection, and Purple Team strategies. Articles are written for security professionals seeking practical, real-world guidance.</p>
+          <div class="port-hint">[ hover to preview ]</div>
+        </div>
+        <!-- BACK -->
+        <div class="port-face port-back">
+          <img src="screenshots/defensedude.jpg" alt="thedefensedude.com screenshot">
+          <div class="port-back-bar">
+            <span>thedefensedude.com</span>
+            <a href="https://thedefensedude.com" target="_blank" rel="noopener noreferrer">visit &rarr;</a>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -1787,6 +1882,17 @@ document.addEventListener('keydown', e => {
 
   window.addEventListener('scroll', setActive, { passive: true });
   setActive();
+})();
+
+// ── PORTFOLIO FLIP (touch/click toggle) ─────────────────────────
+(function() {
+  document.querySelectorAll('.port-flip').forEach(function(flip) {
+    flip.addEventListener('click', function(e) {
+      // don't toggle if they're clicking a link on the back face
+      if (e.target.closest('a')) return;
+      flip.classList.toggle('flipped');
+    });
+  });
 })();
 </script>
 </body>
