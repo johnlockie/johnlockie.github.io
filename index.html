@@ -1089,6 +1089,69 @@
     50% { opacity: 0; }
   }
 
+  /* ── PORTFOLIO ── */
+  #portfolio { background: var(--bg2); }
+  #portfolio .section-title { color: var(--cyan); }
+
+  .port-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .port-card {
+    background: linear-gradient(135deg, rgba(0,204,255,0.07), rgba(0,204,255,0.03));
+    border: 1px solid rgba(0,204,255,0.18);
+    border-left: 3px solid var(--cyan);
+    padding: 24px;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .port-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(0,204,255,0.08);
+  }
+
+  .port-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: 48px;
+    object-fit: contain;
+    opacity: 0.85;
+  }
+
+  .port-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 4px;
+    padding-right: 90px;
+  }
+
+  .port-card-url {
+    font-size: 12px;
+    color: var(--dim);
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+
+  .port-card-url a {
+    color: var(--dim);
+    text-decoration: none;
+  }
+
+  .port-card-url a:hover { color: var(--cyan); }
+
+  .port-card p {
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.7;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 700px) {
 
@@ -1118,10 +1181,12 @@
     .speaking-grid { grid-template-columns: 1fr; }
     .vol-grid      { grid-template-columns: 1fr; }
     .adv-grid      { grid-template-columns: 1fr; }
+    .port-grid     { grid-template-columns: 1fr; }
 
     /* ── HIDE LOGOS ON CARDS ── */
-    .vol-logo { display: none; }
-    .adv-logo { display: none; }
+    .vol-logo  { display: none; }
+    .adv-logo  { display: none; }
+    .port-logo { display: none; }
 
     /* ── SLIDE VIEWER ── */
     .talks-nav { flex-direction: column; }
@@ -1179,6 +1244,7 @@
     <li><a href="#speaking">Speaking</a></li>
     <li><a href="#volunteering">Volunteering</a></li>
     <li><a href="#advising">Advising</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -1465,9 +1531,35 @@
 
 <hr class="divider">
 
+<!-- PORTFOLIO -->
+<section id="portfolio" class="reveal">
+  <div class="section-label">// 06</div>
+  <div class="section-title">Portfolio</div>
+
+  <div class="port-grid">
+
+    <div class="port-card">
+      <img src="logos/threatsrus.webp" alt="Threats-R-Us" class="port-logo">
+      <div class="port-card-title">Threats-R-Us</div>
+      <div class="port-card-url"><a href="https://threatsr.us" target="_blank" rel="noopener noreferrer">threatsr.us</a></div>
+      <p>Threatsr.us was a passion project. It was an OSINT collection of loosely coupled public facing honeypots which aimed to collect low level data about risky IP addresses, and then distribute that info to interested parties. Due to the low efficacy of IP intelligence, and the time/cost involved to upkeep the service I retired it.</p>
+    </div>
+
+    <div class="port-card">
+      <img src="logos/defensedude.png" alt="The Defense Dude" class="port-logo">
+      <div class="port-card-title">The Defense Dude</div>
+      <div class="port-card-url"><a href="https://thedefensedude.com" target="_blank" rel="noopener noreferrer">thedefensedude.com</a></div>
+      <p>A cybersecurity blog covering technical defensive topics including Active Directory auditing with BloodHound, credential protection, and Purple Team strategies. Articles are written for security professionals seeking practical, real-world guidance.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
 <!-- EDUCATION -->
 <section id="education" class="reveal">
-  <div class="section-label">// 06</div>
+  <div class="section-label">// 07</div>
   <div class="section-title">Education</div>
 
   <div class="edu-block" style="position:relative;">
@@ -1495,7 +1587,7 @@
 
 <!-- CONTACT -->
 <section id="contact" class="reveal">
-  <div class="section-label">// 07</div>
+  <div class="section-label">// 08</div>
   <div class="section-title">Contact</div>
   <div class="contact-layout">
     <div class="contact-card">
