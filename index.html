@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Lockie — Technology Leader</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root {
+    --red:    #ff3333;
+    --green:  #00ff88;
+    --blue:   #4488ff;
+    --yellow: #ffcc00;
+    --cyan:   #00ccff;
+    --purple: #cc44ff;
+    --orange: #ff8844;
+    --white:  #f0f0f0;
+    --dim:    #888;
+    --bg:     #060606;
+    --bg2:    #0d0d0d;
+    --bg3:    #111;
+    --card:   #141414;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Courier Prime', 'Courier New', Courier, monospace;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 2px; }
+
+  /* ── MATRIX CANVAS ── */
+  #matrix-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.04;
+    pointer-events: none;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-logo {
+    font-size: 14px;
+    color: #000;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .nav-logo span { color: #aaa; }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 4px;
+  }
+
+  nav ul li a {
+    color: #555;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition: all 0.2s;
+    display: block;
+    position: relative;
+  }
+
+  nav ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%; right: 50%;
+    height: 1px;
+    background: var(--green);
+    transition: all 0.3s;
+  }
+
+  nav ul li a:hover,
+  nav ul li a.nav-active {
+    color: var(--green);
+    background: #000;
+    border-color: #000;
+    text-shadow: 0 0 8px rgba(0,255,136,0.6);
+  }
+
+  nav ul li a:hover::before,
+  nav ul li a.nav-active::before { left: 14px; right: 14px; }
+
+  /* ── SECTIONS ── */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+  }
+
+  .hero-grid {
+    display: block;
+    position: relative;
+    z-index: 2;
+    width: 90vw;
+    margin: 0 auto;
+    padding: 44px 56px;
+    background: rgba(0,0,0,0.78);
+    backdrop-filter: blur(4px);
+    border-left: 3px solid var(--white);
+  }
+
+  .hero-name {
+    font-size: clamp(36px, 5vw, 62px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+
+  .hero-name .first { color: var(--white); display: block; }
+  .hero-name .last  { color: var(--white); display: block; }
+
+  .hero-title {
+    font-size: 14px;
+    color: var(--cyan);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin: 16px 0 8px;
+  }
+
+  .hero-tagline {
+    font-size: 15px;
+    color: var(--dim);
+    font-style: italic;
+    margin-bottom: 24px;
+    min-height: 24px;
+  }
+
+  .hero-contact {
+    font-size: 12px;
+    color: #555;
+    letter-spacing: 1px;
+    margin-bottom: 32px;
+    line-height: 2;
+  }
+
+  .hero-contact a { color: var(--green); text-decoration: none; }
+  .hero-contact a:hover { text-shadow: 0 0 8px rgba(0,255,136,0.8); }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .badge {
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    border: 1px solid;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  .badge-green  { border-color: var(--green);  color: var(--green);  }
+  .badge-blue   { border-color: var(--blue);   color: var(--blue);   }
+  .badge-yellow { border-color: var(--yellow); color: var(--yellow); }
+  .badge-red    { border-color: var(--red);    color: var(--red);    }
+  .badge-cyan   { border-color: var(--cyan);   color: var(--cyan);   }
+  .badge-purple { border-color: var(--purple); color: var(--purple); }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.7;
+    animation: hint-fade 2.5s ease-in-out infinite;
+    cursor: default;
+  }
+
+  .scroll-hint span {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .scroll-hint-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+    animation: bounce-arrow 1.2s ease-in-out infinite;
+  }
+
+  @keyframes bounce-arrow {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50%       { transform: rotate(45deg) translateY(5px); }
+  }
+
+  @keyframes hint-fade {
+    0%, 100% { opacity: 0.7; }
+    50%       { opacity: 0.3; }
+  }
+
+  /* ── HEADSHOT (removed - now using full-bleed bg) ── */
+
+  /* ── SCROLL FADE ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #333, transparent);
+    margin: 0;
+  }
+
+  /* ── BIO ── */
+  #bio { background: var(--bg); }
+
+  #bio .section-title { color: var(--cyan); }
+
+  .bio-text {
+    font-size: 16px;
+    color: #ccc;
+    line-height: 1.9;
+    border-left: 2px solid var(--cyan);
+    padding-left: 24px;
+    font-style: italic;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--bg); }
+  #experience .section-title { color: var(--white); }
+
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--white), transparent);
+  }
+
+  .job {
+    position: relative;
+    margin-bottom: 48px;
+    background: var(--card);
+    border: 1px solid #1e1e1e;
+    padding: 28px 28px 24px;
+    border-radius: 2px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transform-style: preserve-3d;
+  }
+
+  .job::before {
+    content: '▶';
+    position: absolute;
+    left: -32px;
+    top: 28px;
+    font-size: 10px;
+    color: var(--red);
+  }
+
+  .job-year {
+    position: absolute;
+    left: -120px;
+    top: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 2px;
+    text-align: right;
+    width: 80px;
+  }
+
+  .job:hover {
+    transform: perspective(600px) rotateX(1deg) translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255,51,51,0.08);
+    border-color: #2a2a2a;
+  }
+
+  .job-company {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .job-title {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .job-dates {
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .job-context {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 14px;
+    border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 14px;
+  }
+
+  .job-summary {
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 14px;
+  }
+
+  .job ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .job ul li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
+  .job ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .job ul li strong {
+    color: var(--white);
+  }
+
+  .job ul ul {
+    margin-top: 8px;
+    padding-left: 16px;
+    border-left: 1px solid #222;
+  }
+
+  .job ul ul li { color: #777; }
+
+  /* ── COMPANY LOGO ── */
+  .job-logo-wrap {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.85;
+    transition: opacity 0.3s;
+  }
+
+  .job:hover .job-logo-wrap { opacity: 1; }
+
+  .job-logo {
+    max-width: 100px;
+    max-height: 64px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(1.2);
+    display: block;
+  }
+
+  .job-logo-fallback {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  /* Per-company accent colors */
+  .job[data-co="kayne"] {
+    background: linear-gradient(135deg, rgba(255,204,0,0.07), rgba(255,204,0,0.03));
+    border: 1px solid rgba(255,204,0,0.2);
+    border-left: 3px solid var(--yellow);
+  }
+  .job[data-co="kayne"] .job-company { color: var(--yellow); }
+  .job[data-co="kayne"] .job-title   { color: var(--yellow); opacity: 0.7; }
+  .job[data-co="kayne"]::before      { color: var(--yellow); }
+  .job[data-co="kayne"] ul > li      { color: #c8c8c8; }
+  .job[data-co="kayne"]:hover        { box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 24px rgba(255,204,0,0.12); }
+
+  .job[data-co="doubleline"] {
+    background: linear-gradient(135deg, rgba(68,136,255,0.07), rgba(68,136,255,0.03));
+    border: 1px solid rgba(68,136,255,0.2);
+    border-left: 3px solid var(--blue);
+  }
+  .job[data-co="doubleline"] .job-company { color: var(--blue); }
+  .job[data-co="doubleline"] .job-title   { color: var(--blue); opacity: 0.7; }
+  .job[data-co="doubleline"]::before      { color: var(--blue); }
+  .job[data-co="doubleline"] ul > li      { color: #c8c8c8; }
+  .job[data-co="doubleline"]:hover        { box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 24px rgba(68,136,255,0.12); }
+
+  .job[data-co="caltech"] {
+    background: linear-gradient(135deg, rgba(0,255,136,0.07), rgba(0,255,136,0.03));
+    border: 1px solid rgba(0,255,136,0.2);
+    border-left: 3px solid var(--green);
+  }
+  .job[data-co="caltech"] .job-company { color: var(--green); }
+  .job[data-co="caltech"] .job-title   { color: var(--green); opacity: 0.7; }
+  .job[data-co="caltech"]::before      { color: var(--green); }
+  .job[data-co="caltech"] ul > li      { color: #c8c8c8; }
+  .job[data-co="caltech"]:hover        { box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 24px rgba(0,255,136,0.12); }
+
+  .job[data-co="burbank"] {
+    background: linear-gradient(135deg, rgba(255,51,51,0.07), rgba(255,51,51,0.03));
+    border: 1px solid rgba(255,51,51,0.2);
+    border-left: 3px solid var(--red);
+  }
+  .job[data-co="burbank"] .job-company { color: var(--red); }
+  .job[data-co="burbank"] .job-title   { color: var(--red); opacity: 0.7; }
+  .job[data-co="burbank"]::before      { color: var(--red); }
+  .job[data-co="burbank"] ul > li      { color: #c8c8c8; }
+  .job[data-co="burbank"]:hover        { box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 24px rgba(255,51,51,0.12); }
+
+  .job[data-co="csi"] {
+    background: linear-gradient(135deg, rgba(255,136,68,0.07), rgba(255,136,68,0.03));
+    border: 1px solid rgba(255,136,68,0.2);
+    border-left: 3px solid var(--orange);
+  }
+  .job[data-co="csi"] .job-company { color: var(--orange); }
+  .job[data-co="csi"] .job-title   { color: var(--orange); opacity: 0.7; }
+  .job[data-co="csi"]::before      { color: var(--orange); }
+  .job[data-co="csi"] ul > li      { color: #c8c8c8; }
+  .job[data-co="csi"]:hover        { box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 24px rgba(255,136,68,0.12); }
+
+
+  /* AI highlight callout */
+  .ai-callout {
+    background: linear-gradient(135deg, rgba(255,204,0,0.06), rgba(255,204,0,0.03));
+    border: 1px solid rgba(255,204,0,0.2);
+    border-left: 3px solid var(--yellow);
+    padding: 16px 20px;
+    margin: 16px 0;
+    border-radius: 2px;
+  }
+
+  .ai-callout p {
+    font-size: 12px;
+    color: var(--yellow);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .ai-callout ul li { color: rgba(255,204,0,0.75) !important; }
+
+  .highlight-tag {
+    display: inline-block;
+    background: rgba(0,255,136,0.1);
+    color: var(--green);
+    border: 1px solid rgba(0,255,136,0.3);
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* ── SPEAKING ── */
+  #speaking { background: var(--bg); }
+  #speaking .section-title { color: var(--purple); }
+
+  .speaking-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .talk-card {
+    background: var(--card);
+    border: 1px solid #1e1e1e;
+    padding: 20px;
+    border-radius: 2px;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    cursor: default;
+  }
+
+  .talk-card:hover {
+    transform: perspective(600px) rotateY(-2deg) translateY(-4px);
+    box-shadow: 0 16px 48px rgba(204,68,255,0.1);
+    border-color: rgba(204,68,255,0.3);
+  }
+
+  .talk-event {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .talk-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .talk-meta {
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 1px;
+  }
+
+  /* ── VOLUNTEERING ── */
+  #volunteering { background: var(--bg2); }
+  #volunteering .section-title { color: var(--orange); }
+
+  .vol-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .vol-card {
+    background: var(--card);
+    border: 1px solid #1e1e1e;
+    border-left: 3px solid var(--orange);
+    padding: 24px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+
+  .vol-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: 64px;
+    object-fit: contain;
+    opacity: 0.9;
+  }
+
+  .vol-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(255,136,68,0.1);
+  }
+
+  .vol-org {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .vol-role {
+    font-size: 14px;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .vol-dates {
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── ADVISING ── */
+  #advising { background: var(--bg); }
+  #advising .section-title { color: var(--blue); }
+
+  .adv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .adv-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+    border: 1px solid rgba(255,255,255,0.18);
+    border-left: 3px solid rgba(255,255,255,0.7);
+    padding: 24px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+
+  .adv-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    height: 64px;
+    object-fit: contain;
+    opacity: 0.9;
+  }
+
+  .adv-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(255,255,255,0.06);
+  }
+
+  .adv-org {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .adv-role {
+    font-size: 14px;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .adv-dates {
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--bg); }
+  #education .section-title { color: var(--yellow); }
+
+  .edu-block {
+    background: var(--card);
+    border: 1px solid #1e1e1e;
+    padding: 24px;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--yellow);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .edu-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(255,204,0,0.06);
+  }
+
+  .edu-school {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--yellow);
+    margin-bottom: 4px;
+  }
+
+  .edu-degree {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 4px;
+  }
+
+  .cert-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .cert {
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 5px 12px;
+    border: 1px solid rgba(255,204,0,0.3);
+    color: var(--yellow);
+    text-transform: uppercase;
+    background: rgba(255,204,0,0.04);
+    transition: background 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+
+  .cert:hover {
+    background: rgba(255,204,0,0.1);
+    box-shadow: 0 0 12px rgba(255,204,0,0.2);
+  }
+
+  /* ── CONTACT SECTION ── */
+  #contact { background: var(--bg2); }
+  #contact .section-title { color: var(--cyan); }
+
+  .contact-layout {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    margin-top: 32px;
+  }
+
+  .contact-card {
+    background: var(--card);
+    border: 1px solid #1e1e1e;
+    border-left: 3px solid var(--cyan);
+    padding: 40px;
+    flex: 1;
+    max-width: 560px;
+  }
+
+  .contact-headshot {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid var(--cyan);
+    box-shadow: 0 0 32px rgba(0,204,255,0.2);
+    flex-shrink: 0;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: var(--white);
+  }
+
+  .contact-row:last-child { margin-bottom: 0; }
+
+  .contact-icon {
+    font-size: 18px;
+    width: 28px;
+    text-align: center;
+    color: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  .contact-row a {
+    color: var(--cyan);
+    text-decoration: none;
+    transition: text-shadow 0.2s;
+  }
+
+  .contact-row a:hover {
+    text-shadow: 0 0 10px rgba(0,204,255,0.7);
+  }
+
+  /* ── TALKS / SLIDE VIEWER ── */
+  #talks { background: var(--bg); }
+  #talks .section-title { color: var(--orange); }
+
+  .talks-nav {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .talk-nav-btn {
+    background: transparent;
+    border: 1px solid #2a2a2a;
+    color: var(--dim);
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .talk-nav-btn:hover,
+  .talk-nav-btn.active {
+    border-color: var(--purple);
+    color: var(--purple);
+    text-shadow: 0 0 8px rgba(204,68,255,0.6);
+  }
+
+  .talk-viewer { display: none; }
+  .talk-viewer.active { display: block; }
+
+  .talk-viewer-header {
+    margin-bottom: 20px;
+  }
+
+  .talk-viewer-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--purple);
+    margin-bottom: 4px;
+  }
+
+  .talk-viewer-subtitle {
+    font-size: 13px;
+    color: var(--dim);
+    letter-spacing: 2px;
+  }
+
+  /* Slide container */
+  .slide-stage {
+    position: relative;
+    background: #000;
+    border: 1px solid #222;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .slide-stage img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Slide controls */
+  .slide-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--card);
+    border: 1px solid #1a1a1a;
+  }
+
+  .slide-btn {
+    background: transparent;
+    border: 1px solid #333;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .slide-btn:hover {
+    border-color: var(--purple);
+    color: var(--purple);
+    box-shadow: 0 0 12px rgba(204,68,255,0.3);
+  }
+
+  .slide-btn:disabled {
+    opacity: 0.2;
+    cursor: default;
+    border-color: #222;
+    box-shadow: none;
+    color: #333;
+  }
+
+  .slide-counter {
+    font-size: 12px;
+    color: var(--dim);
+    letter-spacing: 2px;
+    flex-shrink: 0;
+  }
+
+  .slide-thumb-strip {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+    overflow-x: auto;
+    padding: 4px 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--purple) var(--bg);
+  }
+
+  .slide-thumb {
+    flex-shrink: 0;
+    width: 60px;
+    height: 34px;
+    object-fit: cover;
+    border: 1px solid #2a2a2a;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.2s, border-color 0.2s;
+  }
+
+  .slide-thumb:hover { opacity: 0.8; }
+  .slide-thumb.active {
+    opacity: 1;
+    border-color: var(--purple);
+    box-shadow: 0 0 8px rgba(204,68,255,0.4);
+  }
+
+  /* Prev/next overlay arrows on slide */
+  .slide-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    font-size: 22px;
+    width: 44px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 10;
+    user-select: none;
+  }
+
+  .slide-arrow-left  { left: 0;  border-radius: 0 2px 2px 0; }
+  .slide-arrow-right { right: 0; border-radius: 2px 0 0 2px; }
+
+  .slide-stage:hover .slide-arrow { opacity: 1; }
+  .slide-arrow:hover {
+    background: rgba(204,68,255,0.3);
+    border-color: var(--purple);
+    color: var(--purple);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid #111;
+    background: var(--bg);
+  }
+
+  footer p {
+    font-size: 11px;
+    color: #333;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  footer p span { color: var(--green); }
+
+  /* ── GLOW PULSE ── */
+  @keyframes glow-pulse {
+    0%, 100% { text-shadow: 0 0 8px currentColor; }
+    50%       { text-shadow: 0 0 20px currentColor, 0 0 40px currentColor; }
+  }
+
+  .glow-pulse { animation: glow-pulse 3s ease-in-out infinite; }
+
+  /* ── TYPEWRITER CURSOR ── */
+  .cursor {
+    display: inline-block;
+    background: var(--green);
+    width: 8px;
+    height: 16px;
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    nav ul { display: none; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .headshot-wrap { width: 200px; height: 200px; order: -1; }
+    .speaking-grid { grid-template-columns: 1fr; }
+    section { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="matrix-canvas"></canvas>
+
+<!-- NAV -->
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid">
+    <div class="hero-name">
+      <span class="first">John</span>
+      <span class="last">Lockie</span>
+    </div>
+    <div class="hero-title">Head of Infrastructure &amp; Platform Services</div>
+    <div class="hero-tagline" id="tagline"><span class="cursor"></span></div>
+    <div class="hero-contact" style="display:none;">
+      <span id="contact-line1"></span><br>
+      <span id="contact-line2"></span>
+    </div>
+    <div class="hero-badges">
+      <span class="badge badge-blue">Cloud &amp; DevOps</span>
+      <span class="badge badge-cyan">Infrastructure</span>
+      <span class="badge badge-red">Cybersecurity</span>
+      <span class="badge badge-yellow">Enterprise Support</span>
+      <span class="badge badge-green">Agentic Strategy</span>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-hint-arrow"></div>
+  </div>
+</section>
+
+<nav>
+  <div class="nav-logo">J<span>.</span>Lockie</div>
+  <ul>
+    <li><a href="#bio">Bio</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#speaking">Speaking</a></li>
+    <li><a href="#volunteering">Volunteering</a></li>
+    <li><a href="#advising">Advising</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<hr class="divider">
+
+<!-- BIO -->
+<section id="bio" class="reveal">
+  <div class="section-label">// 01</div>
+  <div class="section-title">About</div>
+  <p class="bio-text">
+    Over two decades of experience in technology leadership, specializing in driving business
+    transformation through infrastructure, cybersecurity, cloud services, software development,
+    data science, and emerging technologies. Leadership responsibilities include mentoring
+    high-performing cross-functional teams, managing global technology platforms, and
+    spearheading key technology initiatives.
+  </p>
+</section>
+
+<hr class="divider">
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">// 02</div>
+  <div class="section-title">Experience</div>
+
+  <div class="timeline">
+
+    <!-- Kayne Anderson -->
+    <div class="job reveal" data-co="kayne">
+      <div class="job-year">2020 – Now</div>
+      <div class="job-logo-wrap"><img class="job-logo" src="logos/KA-Logo-White.png" alt="Kayne Anderson"></div>
+      <div class="job-company">Kayne Anderson Capital Advisors</div>
+      <div class="job-title">Head of Infrastructure and Platform Services</div>
+      <div class="job-dates">July 2020 – Present</div>
+      <div class="job-context">Global $40B+ private equity and investment management firm with offices in US and Europe.</div>
+<div class="job-summary">Leading global infrastructure and operations teams reporting to the CTO.</div>
+      <ul>
+        <li>Extremely well-versed in AI technologies: Agentic AI/Agents, Retrieval-Augmented Generation (RAG), Model Context Protocol (MCP), Ontologies &amp; Knowledge Graphs, Agent Skills, LangChain, Chain-of-Thought (CoT) Prompting, Semantic Search, and Tool Augmentation.</li>
+        <li>Delivering strategic guidance and leadership to the IT Steering, Risk, and Security committees, mobilizing initiatives that mitigate risk and align technology strategies with business objectives.</li>
+        <li>Strengthening the coordination between technology and business by fostering collaborative relationships with managing partners and investment professionals throughout the firm.</li>
+        <li>Maturing the firm's cloud computing strategy by transforming it into a highly available, scalable, and cost-effective platform supporting fourfold growth in operations from 2020 to 2025.</li>
+        <li>Overseeing the divestiture / carve-out of multiple business units (Liquid Credit, Growth Capital, and Family Office), as well as portfolio company wind downs, ensuring smooth transition of services and secure hand-off of assets.</li>
+        <li>Cultivating a data-driven, "business first" global 24×7 support culture.</li>
+        <li>Optimized support and infrastructure engineering operations for offshore teams in India and Vietnam, enhancing productivity and alignment with global business objectives.</li>
+        <li>Oversight of vendor relationships and IT budget — established comprehensive technology budgeting and contract management platform, maximizing ROI and preventing costly auto-renewals.</li>
+        <li>Oversaw the change management platform including a custom internal change request application.</li>
+        <li>Key initiatives: firmwide digital re-brand · email security overhaul · SMS compliance monitoring · modern phone system · ZTNA remote access · eliminated physical data centers · multiple office moves and expansions · complete AV infrastructure overhaul.</li>
+      </ul>
+    </div>
+
+    <!-- DoubleLine -->
+    <div class="job reveal" data-co="doubleline">
+      <div class="job-year">2017 – 2020</div>
+      <div class="job-logo-wrap"><img class="job-logo" src="logos/doubleline.png" alt="DoubleLine"></div>
+      <div class="job-company">DoubleLine Capital</div>
+      <div class="job-title">Head of Infrastructure &amp; CISO</div>
+      <div class="job-dates">January 2017 – July 2020</div>
+      <div class="job-context">Global investment manager with $150B+ AUM during my employment. Managing a team of 12+ across global operations (Japan, Europe, Dubai, India, South America, USA) in a heavily regulated '40 Act Fund environment.</div>
+      <ul>
+        <li>Established a comprehensive technology risk program and served on the firm's Operational Risk and Business Continuity Sub-Committees.</li>
+        <li>Overhauled Corporate Information Security and Privacy Policies to address GDPR, CCPA, and beyond.</li>
+        <li>Aligned security program with NIST standards, enhancing client confidence and due diligence.</li>
+        <li>Rebuilt the Incident Response Plan; established annual cross-functional tabletop program.</li>
+        <li>Led migration to cloud, improving security posture and reducing third-party hosting costs.</li>
+        <li>Modernized data center infrastructure — significant application performance improvements (NetApp/Cisco/FlexPod).</li>
+        <li>Built tailored user awareness training program, significantly reducing phishing failure rates.</li>
+        <li>Developed cross-functional third-party risk management process from scratch.</li>
+        <li>Participated in investor due diligence meetings.</li>
+      </ul>
+    </div>
+
+    <!-- Caltech EFCU -->
+    <div class="job reveal" data-co="caltech">
+      <div class="job-year">2013 – 2017</div>
+      <div class="job-logo-wrap"><div class="job-logo-fallback" style="background: #0d3b6e; font-size:11px; letter-spacing:1px;">CEFCU</div></div>
+      <div class="job-company">Caltech Employees Federal Credit Union</div>
+      <div class="job-title">AVP, Infrastructure and Information Security</div>
+      <div class="job-dates">March 2013 – January 2017</div>
+      <div class="job-context">34,000+ members throughout North America with $2B+ in assets.</div>
+      <ul>
+        <li>Led all aspects of technology, reporting directly to the CIO.</li>
+        <li>Oversaw development and launch of a new online and mobile banking platform.</li>
+        <li>Implemented and managed Palo Alto, Carbon Black, McAfee, Nessus, NetApp, Cisco, Proofpoint, and ZixMail.</li>
+        <li>Directed security audits, risk management, and compliance assessments.</li>
+      </ul>
+    </div>
+
+    <!-- Burbank City FCU -->
+    <div class="job reveal" data-co="burbank">
+      <div class="job-year">2012 – 2013</div>
+      <div class="job-logo-wrap"><img class="job-logo" src="logos/gainfcu.svg" alt="Gain FCU"></div>
+      <div class="job-company">Gain Federal Credit Union</div>
+      <div class="job-title">Director of Information Technology</div>
+      <div class="job-dates">March 2012 – March 2013</div>
+      <div class="job-context">15,000+ members in Southern California with $300M+ in assets.</div>
+      <ul>
+        <li>Managed all aspects of IT including in-house development of online and mobile banking platforms.</li>
+        <li>Delivered infrastructure oversight including major data center improvements, branch operations enhancements, and rapid efficiency gains.</li>
+      </ul>
+    </div>
+
+    <!-- CSI -->
+    <div class="job reveal" data-co="csi">
+      <div class="job-year">2004 – 2012</div>
+      <div class="job-logo-wrap"><img class="job-logo" src="logos/csi.svg" alt="CSI Electrical"></div>
+      <div class="job-company">CSI Electrical Contractors, Inc.</div>
+      <div class="job-title">Director of Technology</div>
+      <div class="job-dates">July 2004 – March 2012</div>
+      <div class="job-context">Large premier industrial electrical contractor in Southern California, 1,000+ employees across multiple sites.</div>
+      <ul>
+        <li>Managed strategy, IT staff, budgeting, purchasing, infrastructure and support — reporting to the CFO.</li>
+        <li>Oversaw development of custom mobile applications for field services (purchasing, tool requisition, time tracking).</li>
+        <li>Virtualized all data centers using converged infrastructure (FlexPod) to accommodate accelerated growth.</li>
+        <li>Established and headed the first technology solutions group — expanded into voice and data solutions.</li>
+      </ul>
+    </div>
+
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- SPEAKING -->
+<section id="speaking" class="reveal">
+  <div class="section-label">// 03</div>
+  <div class="section-title">Speaking</div>
+
+  <div class="speaking-grid">
+    <div class="talk-card">
+      <div class="talk-event">ITNation Connect · Nov 2024</div>
+      <div class="talk-title">7 Deadly Sins of MSPs</div>
+      <div class="talk-meta">Industry conference for MSPs, keynote-style presentation from the customer's perspective of what MSPs do wrong.</div>
+    </div>
+    <div class="talk-card">
+      <div class="talk-event">FS-ISAC · June 2024 · 600+ Attendees</div>
+      <div class="talk-title">IAM not who I say IAM: Evolving Threat of Deepfakes</div>
+      <div class="talk-meta">Past, present and future state of deepfake technologies targeting financial services sector. Talk given in multiple settings and multiple industries.</div>
+    </div>
+    <div class="talk-card">
+      <div class="talk-event">FS-ISAC · May 2017</div>
+      <div class="talk-title">Stranger Things: Active Directory Auditing with Bloodhound</div>
+      <div class="talk-meta">Technical talk on using what was at the time a novel purple team tool. Given to financial services audience.</div>
+    </div>
+    <div class="talk-card">
+      <div class="talk-event">FS-ISAC · May 2017</div>
+      <div class="talk-title">Threat Intelligence: From Consumer to Producer</div>
+      <div class="talk-meta">A talk aimed at providing a roadmap for FS-ISAC members seeking to add their voice to the fight against digital financial crime.</div>
+    </div>
+    <div class="talk-card">
+      <div class="talk-event">FS-ISAC · October 2016</div>
+      <div class="talk-title">Panel Moderator: Threat Intelligence for Community Institutions</div>
+      <div class="talk-meta">Panel discussion analyzing the role a threat intelligence program can play within community institutions (regional banks, etc.).</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px;">
+    <div class="talks-nav">
+      <button class="talk-nav-btn active" onclick="switchTalk('talk1', this)">IAM / Deepfakes</button>
+      <button class="talk-nav-btn" onclick="switchTalk('talk2', this)">Stranger Things / AD</button>
+      <button class="talk-nav-btn" onclick="switchTalk('talk3', this)">Level Up</button>
+    </div>
+
+    <!-- Talk 1 -->
+    <div class="talk-viewer active" id="viewer-talk1">
+      <div class="talk-viewer-header">
+        <div class="talk-viewer-title">IAM not who I say IAM</div>
+        <div class="talk-viewer-subtitle">The Evolving Threat of Deepfakes &nbsp;·&nbsp; FS-ISAC · June 2024 · 600+ Attendees</div>
+      </div>
+      <div class="slide-stage" id="stage-talk1">
+        <button class="slide-arrow slide-arrow-left" onclick="prevSlide('talk1')">&#8249;</button>
+        <img id="slide-img-talk1" src="slides/talk1/slide01.png" alt="Slide 1">
+        <button class="slide-arrow slide-arrow-right" onclick="nextSlide('talk1')">&#8250;</button>
+      </div>
+      <div class="slide-controls">
+        <button class="slide-btn" id="prev-talk1" onclick="prevSlide('talk1')" disabled>&#8592;</button>
+        <span class="slide-counter" id="counter-talk1">1 / 22</span>
+        <button class="slide-btn" id="next-talk1" onclick="nextSlide('talk1')">&#8594;</button>
+        <div class="slide-thumb-strip" id="thumbs-talk1"></div>
+      </div>
+    </div>
+
+    <!-- Talk 2 -->
+    <div class="talk-viewer" id="viewer-talk2">
+      <div class="talk-viewer-header">
+        <div class="talk-viewer-title">Stranger Things: AD Auditing with Bloodhound</div>
+        <div class="talk-viewer-subtitle">FS-ISAC · May 2017 · Technical Security Track</div>
+      </div>
+      <div class="slide-stage" id="stage-talk2">
+        <button class="slide-arrow slide-arrow-left" onclick="prevSlide('talk2')">&#8249;</button>
+        <img id="slide-img-talk2" src="slides/talk2/slide01.png" alt="Slide 1">
+        <button class="slide-arrow slide-arrow-right" onclick="nextSlide('talk2')">&#8250;</button>
+      </div>
+      <div class="slide-controls">
+        <button class="slide-btn" id="prev-talk2" onclick="prevSlide('talk2')" disabled>&#8592;</button>
+        <span class="slide-counter" id="counter-talk2">1 / 20</span>
+        <button class="slide-btn" id="next-talk2" onclick="nextSlide('talk2')">&#8594;</button>
+        <div class="slide-thumb-strip" id="thumbs-talk2"></div>
+      </div>
+    </div>
+
+    <!-- Talk 3 -->
+    <div class="talk-viewer" id="viewer-talk3">
+      <div class="talk-viewer-header">
+        <div class="talk-viewer-title">Taking Your Institution to the Next Level</div>
+        <div class="talk-viewer-subtitle">Financial Institution Cybersecurity Talk</div>
+      </div>
+      <div class="slide-stage" id="stage-talk3">
+        <button class="slide-arrow slide-arrow-left" onclick="prevSlide('talk3')">&#8249;</button>
+        <img id="slide-img-talk3" src="slides/talk3/slide01.png" alt="Slide 1">
+        <button class="slide-arrow slide-arrow-right" onclick="nextSlide('talk3')">&#8250;</button>
+      </div>
+      <div class="slide-controls">
+        <button class="slide-btn" id="prev-talk3" onclick="prevSlide('talk3')" disabled>&#8592;</button>
+        <span class="slide-counter" id="counter-talk3">1 / 14</span>
+        <button class="slide-btn" id="next-talk3" onclick="nextSlide('talk3')">&#8594;</button>
+        <div class="slide-thumb-strip" id="thumbs-talk3"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="divider">
+
+<!-- VOLUNTEERING -->
+<section id="volunteering" class="reveal">
+  <div class="section-label">// 04</div>
+  <div class="section-title">Volunteering</div>
+  <div class="vol-grid">
+    <div class="vol-card">
+      <img class="vol-logo" src="logos/acp.svg" alt="ACP">
+      <div class="vol-org">American Corporate Partners</div>
+      <div class="vol-role">Career Mentor for US Veterans</div>
+      <div class="vol-dates">April 2023 – Present</div>
+      <p style="margin-top:14px; font-size:13px; color:#aaa; line-height:1.7;">Mentoring active duty and veteran service members who are seeking technology careers in the private sector, or seeking growth through network expansion. It is an incredible honor to be a small part of their professional story, and I consider it a great joy to share knowledge and guidance with the men and women of our military.</p>
+    </div>
+    <div class="vol-card">
+      <img class="vol-logo" src="logos/tmu.jpg" alt="The Master's University">
+      <div class="vol-org">The Master's University</div>
+      <div class="vol-role">Cyber Security Program Advisor</div>
+      <div class="vol-dates">January 2024 – Present</div>
+      <p style="margin-top:14px; font-size:13px; color:#aaa; line-height:1.7;">Having attended Master's from 1998 through 2001, I have since reconnected as alumni and was brought on to advise the technology department with a particular focus on cybersecurity program guidance and mentorship of the CIO's leadership team.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ADVISING -->
+<section id="advising" class="reveal">
+  <div class="section-label">// 05</div>
+  <div class="section-title">Advising</div>
+  <div class="adv-grid">
+
+<div class="adv-card">
+      <img class="adv-logo" src="logos/perch.png" alt="Perch Security">
+      <div class="adv-org">Perch Security</div>
+      <div class="adv-dates">2016 – 2020</div>
+      <div class="adv-role">Founding Advisor · Client #1</div>
+      <p style="margin-top:14px; font-size:13px; color:#aaa; line-height:1.7;">Worked with founders to test and build a cloud-based IDS — the first of its kind, enabling SMBs to leverage actionable intel provided through sharing communities via hybrid infrastructure (on-premise sensors + cloud control). Served as Client #1, tested the product, and met with investors in-person to speak to the platform's efficacy. Perch was acquired by ConnectWise for over $80M.</p>
+    </div>
+
+    <div class="adv-card">
+      <img class="adv-logo" src="logos/vercrio.svg" alt="Vercrio">
+      <div class="adv-org">Vercrio</div>
+      <div class="adv-dates">2022 – Present</div>
+      <div class="adv-role">Strategic Advisor · Co-Inventor</div>
+      <p style="margin-top:14px; font-size:13px; color:#aaa; line-height:1.7;">Helping shape product and market fit for an IAM and identity proofing platform targeting both small and large enterprises. Responsible for bringing their first financial services client, as well as others. Co-inventor on one of their key patents. Vercrio is poised to be a disruptive force in the IAM and agentic security space through an elegant coupling of technology and process.</p>
+    </div>
+
+    <div class="adv-card">
+      <img class="adv-logo" src="logos/knostic.svg" alt="Knostic">
+      <div class="adv-org">Knostic</div>
+      <div class="adv-dates">2024 – Present</div>
+      <div class="adv-role">Client Advisor</div>
+      <p style="margin-top:14px; font-size:13px; color:#aaa; line-height:1.7;">Helping shape their agentic security and governance platform from the perspective of an AI early adopter. Engaged early in the development of their platform, providing real-world feedback on product direction and enterprise applicability.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- EDUCATION -->
+<section id="education" class="reveal">
+  <div class="section-label">// 06</div>
+  <div class="section-title">Education</div>
+
+  <div class="edu-block" style="position:relative;">
+    <img src="logos/wgu.svg" alt="WGU" style="position:absolute; top:16px; right:20px; width:100px; height:48px; object-fit:contain; opacity:0.85;">
+    <div class="edu-school">Western Governors University</div>
+    <div class="edu-degree">Bachelor of Science — Cybersecurity and Information Assurance</div>
+  </div>
+
+  <div class="edu-block" style="border-left-color: var(--yellow);">
+    <div class="edu-school" style="color:var(--yellow); font-size:14px; letter-spacing:2px; text-transform:uppercase;">Certifications</div>
+    <div class="cert-grid">
+      <span class="cert">CISSP</span>
+      <span class="cert">A+</span>
+      <span class="cert">Network+</span>
+      <span class="cert">CySA+</span>
+      <span class="cert">Project+</span>
+      <span class="cert">CIOS</span>
+      <span class="cert">CCDA</span>
+      <span class="cert">CCNA</span>
+      <span class="cert">AWS Cloud Practitioner</span>
+      <span class="cert">ITIL Foundation</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+  <div class="section-label">// 07</div>
+  <div class="section-title">Contact</div>
+  <div class="contact-layout">
+    <div class="contact-card">
+      <div class="contact-row">
+        <span class="contact-icon">&#9993;</span>
+        <a href="mailto:john.lockie@gmail.com">john.lockie@gmail.com</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">&#9742;</span>
+        <a href="tel:+18187385815">(818) 738-5815</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452H17.21v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.989V9h3.102v1.561h.043c.432-.817 1.49-1.678 3.066-1.678 3.279 0 3.884 2.158 3.884 4.966v6.603zM5.337 7.433a1.8 1.8 0 1 1 0-3.601 1.8 1.8 0 0 1 0 3.601zm1.554 13.019H3.783V9h3.108v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.226.792 24 1.771 24h20.451C23.2 24 24 23.226 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </span>
+        <a href="https://www.linkedin.com/in/johnlockie" target="_blank" rel="noopener">linkedin.com/in/johnlockie</a>
+      </div>
+    </div>
+    <img class="contact-headshot" src="headshot.png" alt="John Lockie">
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>John Lockie &nbsp;·&nbsp; <span>john.lockie@gmail.com</span> &nbsp;·&nbsp; Valencia, CA</p>
+</footer>
+
+<script>
+// ── HERO IMAGE ───────────────────────────────────────────────────
+document.querySelector('.hero-bg').style.backgroundImage = "url('06.jpg')";
+
+// ── MATRIX RAIN ──────────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('matrix-canvas');
+  const ctx = canvas.getContext('2d');
+  let cols, drops;
+  const chars = '01アイウエオカキクケコサシスセソABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  function init() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const fs = 13;
+    cols = Math.floor(canvas.width / fs);
+    drops = Array(cols).fill(1);
+  }
+
+  function draw() {
+    ctx.fillStyle = 'rgba(6,6,6,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff88';
+    ctx.font = '13px Courier New';
+    drops.forEach((y, i) => {
+      const ch = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(ch, i * 13, y * 13);
+      if (y * 13 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    });
+  }
+
+  init();
+  setInterval(draw, 50);
+  window.addEventListener('resize', init);
+})();
+
+// ── TYPEWRITER ───────────────────────────────────────────────────
+(function() {
+  function typeInto(el, text, speed, callback) {
+    let i = 0;
+    el.innerHTML = '<span class="cursor"></span>';
+    function tick() {
+      i++;
+      el.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
+      if (i < text.length) {
+        setTimeout(tick, speed);
+      } else if (callback) {
+        setTimeout(callback, 400);
+      }
+    }
+    setTimeout(tick, speed);
+  }
+
+  const tagline = document.getElementById('tagline');
+
+  setTimeout(function() {
+    typeInto(tagline, 'Driving transformation at the intersection of leadership and technology.', 50, function() {
+      tagline.innerHTML = 'Driving transformation at the intersection of leadership and technology.';
+    });
+  }, 1200);
+})();
+
+// ── SCROLL REVEAL ─────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── 3D CARD TILT ─────────────────────────────────────────────────
+document.querySelectorAll('.job, .talk-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width  - 0.5;
+    const y = (e.clientY - rect.top)  / rect.height - 0.5;
+    card.style.transform = `perspective(600px) rotateY(${x * 6}deg) rotateX(${-y * 4}deg) translateY(-3px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// ── SLIDE VIEWER ─────────────────────────────────────────────────
+const slideCounts = { talk1: 22, talk2: 20, talk3: 14 };
+const slideIndex  = { talk1: 1,  talk2: 1,  talk3: 1  };
+
+// Build thumbnails
+Object.keys(slideCounts).forEach(key => {
+  const strip = document.getElementById('thumbs-' + key);
+  for (let i = 1; i <= slideCounts[key]; i++) {
+    const img = document.createElement('img');
+    img.src = `slides/${key}/slide${String(i).padStart(2,'0')}.png`;
+    img.className = 'slide-thumb' + (i === 1 ? ' active' : '');
+    img.dataset.index = i;
+    img.addEventListener('click', () => gotoSlide(key, i));
+    strip.appendChild(img);
+  }
+});
+
+function gotoSlide(key, n) {
+  const total = slideCounts[key];
+  n = Math.max(1, Math.min(total, n));
+  slideIndex[key] = n;
+
+  const img = document.getElementById('slide-img-' + key);
+  img.style.opacity = '0';
+  setTimeout(() => {
+    img.src = `slides/${key}/slide${String(n).padStart(2,'0')}.png`;
+    img.style.opacity = '1';
+  }, 150);
+
+  document.getElementById('counter-' + key).textContent = `${n} / ${total}`;
+  document.getElementById('prev-' + key).disabled = (n === 1);
+  document.getElementById('next-' + key).disabled = (n === total);
+
+  // Update thumbnails
+  document.querySelectorAll(`#thumbs-${key} .slide-thumb`).forEach(t => {
+    const active = parseInt(t.dataset.index) === n;
+    t.classList.toggle('active', active);
+    if (active) t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  });
+}
+
+function prevSlide(key) { gotoSlide(key, slideIndex[key] - 1); }
+function nextSlide(key) { gotoSlide(key, slideIndex[key] + 1); }
+
+function switchTalk(key, btn) {
+  document.querySelectorAll('.talk-viewer').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.talk-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('viewer-' + key).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const active = document.querySelector('.talk-viewer.active');
+  if (!active) return;
+  const key = active.id.replace('viewer-', '');
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextSlide(key); }
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); prevSlide(key); }
+});
+
+// ── NAV HIGHLIGHT ON SCROLL ──────────────────────────────────────
+(function() {
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  const navLinks  = document.querySelectorAll('nav ul li a');
+  const navHeight = document.querySelector('nav').offsetHeight;
+
+  function setActive() {
+    const scrollY = window.scrollY + navHeight + 2;
+    let current = sections[0];
+    for (const s of sections) {
+      if (s.offsetTop <= scrollY) current = s;
+    }
+    navLinks.forEach(a => {
+      a.classList.toggle('nav-active', a.getAttribute('href') === '#' + current.id);
+    });
+  }
+
+  window.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+})();
+</script>
+</body>
+</html>
