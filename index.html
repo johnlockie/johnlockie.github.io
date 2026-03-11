@@ -1068,11 +1068,50 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 700px) {
+
+    /* ── NAV ── */
     nav ul { display: none; }
-    .hero-grid { grid-template-columns: 1fr; }
-    .headshot-wrap { width: 200px; height: 200px; order: -1; }
+    nav { padding: 0 20px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 48px 20px; }
+
+    /* ── HERO ── */
+    .hero-grid { grid-template-columns: 1fr; padding: 32px 20px; }
+    .hero-name { font-size: 48px; }
+    .hero-title { font-size: 11px; }
+    .hero-badges { flex-wrap: wrap; gap: 6px; }
+    .scroll-hint { display: none; }
+
+    /* ── TIMELINE / EXPERIENCE ── */
+    .timeline { padding-left: 0; }
+    .timeline::before { display: none; }
+    .job::before { display: none; }
+    .job-year { position: static; width: auto; text-align: left;
+                font-size: 11px; margin-bottom: 8px; opacity: 0.6; }
+    .job-logo-wrap { display: none; }
+
+    /* ── GRIDS → SINGLE COLUMN ── */
     .speaking-grid { grid-template-columns: 1fr; }
-    section { padding: 60px 24px; }
+    .vol-grid      { grid-template-columns: 1fr; }
+    .adv-grid      { grid-template-columns: 1fr; }
+
+    /* ── HIDE LOGOS ON CARDS ── */
+    .vol-logo { display: none; }
+    .adv-logo { display: none; }
+
+    /* ── SLIDE VIEWER ── */
+    .talks-nav { flex-direction: column; }
+    .talk-nav-btn { width: 100%; text-align: left; }
+    .slide-thumb-strip { display: none; }
+
+    /* ── CONTACT ── */
+    .contact-layout { flex-direction: column; gap: 32px; }
+    .contact-headshot { width: 150px; height: 150px; align-self: center; }
+    .contact-card { width: 100%; }
+
+    /* ── EDUCATION ── */
+    .edu-block img { display: none; }
   }
 </style>
 </head>
