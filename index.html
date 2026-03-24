@@ -24,8 +24,9 @@
 <meta name="twitter:image" content="https://johnlockie.com/headshot.png">
 
 <!-- Preload portfolio screenshots -->
-<link rel="preload" as="image" href="screenshots/threatsr.jpg">
-<link rel="preload" as="image" href="screenshots/defensedude.jpg">
+<link rel="preload" as="image" href="screenshots/cloud-deployer.png">
+<link rel="preload" as="image" href="screenshots/mcpbay.png">
+<link rel="preload" as="image" href="screenshots/lifeafterlikes.png">
 
 <!-- Security headers -->
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -1177,6 +1178,19 @@
 
   .port-back-bar a:hover { text-decoration: underline; }
 
+  .port-back-placeholder {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier Prime', monospace;
+    font-size: 18px;
+    color: var(--cyan);
+    opacity: 0.5;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, rgba(0,204,255,0.06), rgba(0,204,255,0.02));
+  }
+
   .port-logo {
     position: absolute;
     top: 20px;
@@ -1621,7 +1635,7 @@
         </div>
         <!-- BACK -->
         <div class="port-face port-back">
-          <img src="screenshots/threatsr.jpg" alt="threatsr.us screenshot">
+          <div class="port-back-placeholder">threatsr.us</div>
           <div class="port-back-bar">
             <span>threatsr.us</span>
             <a href="https://threatsr.us" target="_blank" rel="noopener noreferrer">visit &rarr;</a>
@@ -1642,10 +1656,69 @@
         </div>
         <!-- BACK -->
         <div class="port-face port-back">
-          <img src="screenshots/defensedude.jpg" alt="thedefensedude.com screenshot">
+          <div class="port-back-placeholder">thedefensedude.com</div>
           <div class="port-back-bar">
             <span>thedefensedude.com</span>
             <a href="https://thedefensedude.com" target="_blank" rel="noopener noreferrer">visit &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-flip">
+      <div class="port-card">
+        <!-- FRONT -->
+        <div class="port-face port-front">
+          <div class="port-card-title">Rain Maker</div>
+          <div class="port-card-url">Cloud Deployment Tool</div>
+          <p>A cloud deployment tool for designing, deploying, and tracking the build out of cloud infrastructure on a per-project basis. Provides a visual interface for architecting environments and monitoring deployment progress in real time.</p>
+          <div class="port-hint">[ hover to preview ]</div>
+        </div>
+        <!-- BACK -->
+        <div class="port-face port-back">
+          <img src="screenshots/cloud-deployer.png" alt="Rain Maker screenshot">
+          <div class="port-back-bar">
+            <span>Rain Maker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-flip">
+      <div class="port-card">
+        <!-- FRONT -->
+        <div class="port-face port-front">
+          <div class="port-card-title">MCP Bay</div>
+          <div class="port-card-url"><a href="https://mcpbay.ai" target="_blank" rel="noopener noreferrer">mcpbay.ai</a></div>
+          <p>A community-driven marketplace and directory for discovering, sharing, and installing Model Context Protocol (MCP) servers. Built to accelerate the MCP ecosystem by making it easy to find and deploy AI tool integrations.</p>
+          <div class="port-hint">[ hover to preview ]</div>
+        </div>
+        <!-- BACK -->
+        <div class="port-face port-back">
+          <img src="screenshots/mcpbay.png" alt="mcpbay.ai screenshot">
+          <div class="port-back-bar">
+            <span>mcpbay.ai</span>
+            <a href="https://mcpbay.ai" target="_blank" rel="noopener noreferrer">visit &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-flip">
+      <div class="port-card">
+        <!-- FRONT -->
+        <div class="port-face port-front">
+          <div class="port-card-title">Life After Likes</div>
+          <div class="port-card-url"><a href="https://lifeafterlikes.com" target="_blank" rel="noopener noreferrer">lifeafterlikes.com</a></div>
+          <p>A web app exploring the impact of social media on mental health and well-being. Designed to encourage mindful digital habits and provide resources for building a healthier relationship with technology.</p>
+          <div class="port-hint">[ hover to preview ]</div>
+        </div>
+        <!-- BACK -->
+        <div class="port-face port-back">
+          <img src="screenshots/lifeafterlikes.png" alt="lifeafterlikes.com screenshot">
+          <div class="port-back-bar">
+            <span>lifeafterlikes.com</span>
+            <a href="https://lifeafterlikes.com" target="_blank" rel="noopener noreferrer">visit &rarr;</a>
           </div>
         </div>
       </div>
