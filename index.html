@@ -1109,7 +1109,6 @@
   .port-flip {
     perspective: 1200px;
     height: 280px;
-    cursor: pointer;
   }
 
   .port-card {
@@ -1120,8 +1119,7 @@
     transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
   }
 
-  .port-flip:hover .port-card,
-  .port-flip.flipped .port-card {
+  .port-flip:hover .port-card {
     transform: rotateY(180deg);
   }
 
@@ -1630,16 +1628,12 @@
           <img src="logos/threatsrus.webp" alt="Threats-R-Us" class="port-logo">
           <div class="port-card-title">Threats-R-Us</div>
           <div class="port-card-url"><a href="https://threatsr.us" target="_blank" rel="noopener noreferrer">threatsr.us</a></div>
-          <p>Threatsr.us was a passion project. It was an OSINT collection of loosely coupled public facing honeypots which aimed to collect low level data about risky IP addresses, and then distribute that info to interested parties. Due to the low efficacy of IP intelligence, and the time/cost involved to upkeep the service I retired it.</p>
+          <p>An OSINT collection of loosely coupled public facing honeypots which aimed to collect low level data about risky IP addresses, and then distribute that info to interested parties. Due to the low efficacy of IP intelligence, and the time/cost involved to upkeep the service I retired it.</p>
           <div class="port-hint">[ hover to preview ]</div>
         </div>
         <!-- BACK -->
         <div class="port-face port-back">
-          <div class="port-back-placeholder">threatsr.us</div>
-          <div class="port-back-bar">
-            <span>threatsr.us</span>
-            <a href="https://threatsr.us" target="_blank" rel="noopener noreferrer">visit &rarr;</a>
-          </div>
+          <img src="screenshots/threatsrus.png" alt="threatsr.us screenshot">
         </div>
       </div>
     </div>
@@ -1656,11 +1650,7 @@
         </div>
         <!-- BACK -->
         <div class="port-face port-back">
-          <div class="port-back-placeholder">thedefensedude.com</div>
-          <div class="port-back-bar">
-            <span>thedefensedude.com</span>
-            <a href="https://thedefensedude.com" target="_blank" rel="noopener noreferrer">visit &rarr;</a>
-          </div>
+          <img src="screenshots/thedefensedude.png" alt="thedefensedude.com screenshot">
         </div>
       </div>
     </div>
@@ -1669,17 +1659,15 @@
       <div class="port-card">
         <!-- FRONT -->
         <div class="port-face port-front">
+          <img src="logos/rainmaker.svg" alt="Rain Maker" class="port-logo">
           <div class="port-card-title">Rain Maker</div>
-          <div class="port-card-url">Cloud Deployment Tool</div>
-          <p>A cloud deployment tool for designing, deploying, and tracking the build out of cloud infrastructure on a per-project basis. Provides a visual interface for architecting environments and monitoring deployment progress in real time.</p>
+          <div class="port-card-url">Internal Cloud Deployment Tool</div>
+          <p>A cloud deployment tool for designing, deploying, and tracking the build out of cloud infrastructure on a per-project basis. Provides a visual interface for architecting environments and monitoring deployment progress in real time. Also provides budgeting insight for project planning.</p>
           <div class="port-hint">[ hover to preview ]</div>
         </div>
         <!-- BACK -->
         <div class="port-face port-back">
           <img src="screenshots/cloud-deployer.png" alt="Rain Maker screenshot">
-          <div class="port-back-bar">
-            <span>Rain Maker</span>
-          </div>
         </div>
       </div>
     </div>
@@ -1688,18 +1676,15 @@
       <div class="port-card">
         <!-- FRONT -->
         <div class="port-face port-front">
+          <img src="logos/mcpbay-icecream-logo.png" alt="MCP Bay" class="port-logo">
           <div class="port-card-title">MCP Bay</div>
           <div class="port-card-url"><a href="https://mcpbay.ai" target="_blank" rel="noopener noreferrer">mcpbay.ai</a></div>
-          <p>A community-driven marketplace and directory for discovering, sharing, and installing Model Context Protocol (MCP) servers. Built to accelerate the MCP ecosystem by making it easy to find and deploy AI tool integrations.</p>
+          <p>MCP Bay is an IaaS solution offering hosted MCP servers, proxies and gateways with full logging, OAuth, and per tool/operation security. MCP Bay was created because I saw the need for tooling infrastructure to support business adoptions of cloud first agent models (Copilot, ChatGPT, Claude).</p>
           <div class="port-hint">[ hover to preview ]</div>
         </div>
         <!-- BACK -->
         <div class="port-face port-back">
           <img src="screenshots/mcpbay.png" alt="mcpbay.ai screenshot">
-          <div class="port-back-bar">
-            <span>mcpbay.ai</span>
-            <a href="https://mcpbay.ai" target="_blank" rel="noopener noreferrer">visit &rarr;</a>
-          </div>
         </div>
       </div>
     </div>
@@ -1708,18 +1693,32 @@
       <div class="port-card">
         <!-- FRONT -->
         <div class="port-face port-front">
+          <img src="logos/lifeafterlikes.svg" alt="Life After Likes" class="port-logo">
           <div class="port-card-title">Life After Likes</div>
           <div class="port-card-url"><a href="https://lifeafterlikes.com" target="_blank" rel="noopener noreferrer">lifeafterlikes.com</a></div>
-          <p>A web app exploring the impact of social media on mental health and well-being. Designed to encourage mindful digital habits and provide resources for building a healthier relationship with technology.</p>
+          <p>Having abandoned social media over a decade ago, I found myself wanting a way to share my old archives with my children. I opted to build a platform that has "drag and drop" support for Instagram and Facebook archives, importing, categorizing, displaying and sharing a life once lived in social media.</p>
           <div class="port-hint">[ hover to preview ]</div>
         </div>
         <!-- BACK -->
         <div class="port-face port-back">
           <img src="screenshots/lifeafterlikes.png" alt="lifeafterlikes.com screenshot">
-          <div class="port-back-bar">
-            <span>lifeafterlikes.com</span>
-            <a href="https://lifeafterlikes.com" target="_blank" rel="noopener noreferrer">visit &rarr;</a>
-          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-flip">
+      <div class="port-card">
+        <!-- FRONT -->
+        <div class="port-face port-front">
+          <img src="logos/lumin.svg" alt="Lumin" class="port-logo">
+          <div class="port-card-title">Lumin</div>
+          <div class="port-card-url"><a href="https://lumin.advisorplatforms.com" target="_blank" rel="noopener noreferrer">lumin.advisorplatforms.com</a></div>
+          <p>A friend had a need to build financial models for his clients that could easily be exported into one of the most widely used trading platforms for wealth advisors. We built a multi-tenant complex portfolio and risk modeler (SaaS), and have plans to continue expanding integrations for users.</p>
+          <div class="port-hint">[ hover to preview ]</div>
+        </div>
+        <!-- BACK -->
+        <div class="port-face port-back">
+          <img src="screenshots/lumin2.png" alt="Lumin screenshot">
         </div>
       </div>
     </div>
@@ -1961,16 +1960,6 @@ document.addEventListener('keydown', e => {
   setActive();
 })();
 
-// ── PORTFOLIO FLIP (touch/click toggle) ─────────────────────────
-(function() {
-  document.querySelectorAll('.port-flip').forEach(function(flip) {
-    flip.addEventListener('click', function(e) {
-      // don't toggle if they're clicking a link on the back face
-      if (e.target.closest('a')) return;
-      flip.classList.toggle('flipped');
-    });
-  });
-})();
 </script>
 </body>
 </html>

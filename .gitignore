@@ -3,3 +3,4 @@
 *.md
 *.jpg.bak
 .DS_Store
+node_modules/
