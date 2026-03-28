@@ -4,3 +4,8 @@
 *.jpg.bak
 .DS_Store
 node_modules/
+generate-pdf.mjs
+package.json
+package-lock.json
+portfolio.html
+talks/*.pptx
