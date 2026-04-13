@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60" fill="none">
+  <!-- Plate circle -->
+  <circle cx="28" cy="30" r="18" stroke="#00ff88" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <circle cx="28" cy="30" r="12" stroke="#00ff88" stroke-width="0.8" fill="none" opacity="0.4"/>
+  <!-- Fork tines -->
+  <line x1="20" y1="22" x2="20" y2="28" stroke="#00ff88" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <line x1="23" y1="22" x2="23" y2="28" stroke="#00ff88" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <line x1="26" y1="22" x2="26" y2="28" stroke="#00ff88" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <!-- Text -->
+  <text x="52" y="35" font-family="sans-serif" font-size="18" font-weight="800" fill="#f0f0f0" letter-spacing="3">PLATE</text>
+</svg>
